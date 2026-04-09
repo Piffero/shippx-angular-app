@@ -1,0 +1,34 @@
+<div class="bg-white rounded-4 shadow-xl overflow-hidden p-0" style="max-width: 500px;">
+      <div class="p-5 text-center">
+        <div class="icon-box mb-4 mx-auto">
+          <i class="fa fa-paper-plane text-primary fs-1"></i>
+        </div>
+        
+        <h4 class="fw-bold text-dark mb-3">Quase lá!</h4>
+        <p class="text-muted mb-5 px-3">
+          Sua remessa foi salva. Para finalizar e receber cotações, 
+          você precisa acessar sua conta na Ship Andromedra.
+        </p>
+
+        <div class="row g-3">
+          <div class="col-6">
+            <button class="square-auth-btn" (click)="navTo('/shippx/signin')">
+              <i class="fa fa-user mb-2"></i>
+              <span class="title">Já tenho conta</span>
+              <span class="subtitle">Fazer Login</span>
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="square-auth-btn" (click)="navTo('/shippx/signup')">
+              <i class="fa fa-user-plus mb-2"></i>
+              <span class="title">Sou novo aqui</span>
+              <span class="subtitle">Criar Cadastro</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-link text-muted mt-4 text-decoration-none small" (click)="close()">
+          Continuar editando
+        </button>
+      </div>
+    </div>

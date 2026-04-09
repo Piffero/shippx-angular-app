@@ -1,0 +1,44 @@
+header {
+    border-bottom: 2px solid #ddd;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+}
+
+.container {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.nav-ctrl {    
+    padding-top: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;    
+    width:5rem;
+    fill: #0083bb; 
+    padding-top: 10px;
+    min-width: 170px;
+}
+
+.logo p {
+    font-family: 'Montserrat', sans-serif; /* Use for custom branding */
+    font-size: 1rem;
+    font-weight: 800;
+    color: #ff8800;
+    text-transform: uppercase;
+    letter-spacing: -1px; /* Tighter tracking for a modern look */
+    text-decoration: none;
+}
+
+img, svg {
+    vertical-align: middle;
+}

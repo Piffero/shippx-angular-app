@@ -1,0 +1,126 @@
+@if (!loading()) {
+<div class="container py-5">
+  <div class="row g-4">
+    
+    <div class="col-lg-4">
+      <div class="card shadow-sm text-center p-4 mb-4">
+        <div class="position-relative d-inline-block mx-auto mb-3">
+          <img [src]="profile()?.avatar_url || 'images/sys/user-default.jpg'" 
+               class="rounded-circle border" style="width: 120px; height: 120px; object-fit: cover;">
+            @if (isMyProfile() && isEditing()) {
+            <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle">
+                <i class="fa fa-camera"></i>
+            </button>
+            }
+        </div>
+        
+        <h4 class="fw-bold mb-1">{{ profile()?.full_name }}</h4>
+        <span class="badge bg-secondary mb-3">{{ profile()?.role }}</span>
+        
+        <div class="d-flex justify-content-center text-warning mb-2">
+          @for (s of [1,2,3,4,5]; track $index) {
+            <i class="fa fa-star"></i>
+          }          
+          <span class="text-muted ms-2">{{ reviewStats().avg }}</span>
+        </div>
+        <p class="small text-muted">{{ reviews().length }} avaliações</p>
+        @if (isMyProfile() && !isEditing()) {
+            <button [routerLink]="['/shippx/profile/details', profile()?.id]" class="btn btn-outline-primary w-100">Editar Perfil</button>
+        }
+      </div>
+
+      <div class="card shadow-sm p-3">
+        <h6 class="fw-bold border-bottom pb-2 mb-3">HISTÓRICO</h6>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-success"><i class="bi bi-hand-thumbs-up"></i> Positivo</span>
+          <span class="fw-bold">{{ reviewStats().positive }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-muted"><i class="bi bi-dash-circle"></i> Neutro</span>
+          <span class="fw-bold">{{ reviewStats().neutral }}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span class="text-danger"><i class="bi bi-hand-thumbs-down"></i> Negativo</span>
+          <span class="fw-bold">{{ reviewStats().negative }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      @if (profile()?.role === 'CARRIER') {
+      <div class="card shadow-sm p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-uppercase m-0">Sobre a Empresa</h5>
+          @if (isEditing()) {
+            <button (click)="saveProfile()" class="btn btn-success btn-sm">Salvar Alterações</button>
+          }
+        </div>
+        
+        @if (!isEditing()) {
+        <div class="row">
+          <p class="text-muted">{{ profile()?.bio || 'Nenhuma descrição informada.' }}</p>
+          <div class="row mt-4 g-3">
+            <div class="col-6 col-md-4">
+              <small class="text-muted d-block">REGISTRADO DESDE</small>
+              <strong>{{ profile()?.created_at | date:'yyyy' }}</strong>
+            </div>
+            <div class="col-6 col-md-4">
+              <small class="text-muted d-block">FROTA</small>
+              <strong>{{ profile()?.carrier_details?.fleet_size || '1-10' }} veículos</strong>
+            </div>
+            <div class="col-6 col-md-4">
+              <small class="text-muted d-block">TIPO DE PROPRIEDADE</small>
+              <strong>{{ profile()?.company_name ? 'PJ' : 'Autônomo' }}</strong>
+            </div>
+          </div>
+        </div>
+        }
+        
+        @if (isEditing()) {
+        <div class="row">
+          <textarea class="form-control mb-3" [(ngModel)]="profile().bio" rows="5"></textarea>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="small fw-bold">Nome da Empresa</label>
+              <input type="text" class="form-control" [(ngModel)]="profile().company_name">
+            </div>
+            <div class="col-md-6">
+              <label class="small fw-bold">Website</label>
+              <input type="text" class="form-control" [(ngModel)]="profile().website">
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      }
+      
+
+      <div class="card shadow-sm p-4">
+        <h5 class="fw-bold mb-4">AVALIAÇÕES RECENTES</h5>
+        @for (rev of reviews(); track $index) {
+        <div class="border-bottom pb-3 mb-3">
+          <div class="d-flex justify-content-between mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <img [src]="rev.author?.avatar_url" class="rounded-circle" style="width: 32px; height: 32px;">
+              <span class="fw-bold small">{{ rev.author?.full_name }}</span>
+            </div>
+            <span class="text-muted small">{{ rev.created_at | date }}</span>
+          </div>
+          <div class="text-warning small mb-1">
+            @for (s of [].constructor(rev.rating); track $index) {
+            <i class="fa fa-star text-warning"></i>
+            }            
+          </div>
+          <p class="mb-0 small text-dark">"{{ rev.comment }}"</p>
+        </div>
+        }
+        
+        @if (reviews().length === 0) {
+            <p class="text-muted text-center">Nenhuma avaliação ainda.</p>
+        }        
+      </div>
+
+    </div>
+  </div>
+</div>
+}

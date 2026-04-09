@@ -1,0 +1,155 @@
+.register-container {
+  min-height: 100vh;
+  background: url('/images/bg-auth-truck.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.register-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Azul Andrometra com 85% de transparência */
+  background-color: rgba(0, 31, 84, 0.85); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  background-color: #ffffff;
+  border: none;
+  /* Garante que o card fique por cima do overlay */
+  z-index: 10; 
+}
+
+.position-relative {
+  position: relative;
+}
+
+/* Input de código com espaçamento de caracteres */
+.otp-input {
+    letter-spacing: 20px;
+    padding-left: 30px !important;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Feedback visual de carregamento */
+.btn-register:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Reutilizando as classes do seu signup.css */
+.btn-register {
+    background-color: #0052FF;
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover:not(:disabled) {
+    background-color: #0041cc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background: #f0f5ff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.back-link {
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #0052FF !important;
+}
+
+/* Garante que o container ocupe a tela toda com a imagem de fundo */
+.register-container {
+    min-height: 100vh;
+    background: url('/images/bg-auth-truck.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+
+/* Container do campo para dar espaçamento */
+.custom-form-group {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Label mais elegante: menor, levemente negritada e com cor suave */
+.custom-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4A5568;
+  margin-bottom: 5px;
+  display: block;
+  transition: color 0.2s;
+}
+
+/* O Input personalizado */
+.custom-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  background-color: #F8FAFC; /* Fundo levemente cinza */
+  border: 2px solid #E2E8F0;
+  border-radius: 12px; /* Cantos mais arredondados */
+  color: #1A202C;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+/* Efeito de Foco: a borda brilha no azul da Andrometra e o fundo clareia */
+.custom-input:focus {
+  background-color: #FFFFFF;
+  border-color: #0052FF;
+  box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.1);
+}
+
+/* Mudança na label quando o input está focado */
+.custom-form-group:focus-within .custom-label {
+  color: #0052FF;
+}
+
+/* Estilização do Placeholder */
+.custom-input::placeholder {
+  color: #A0AEC0;
+  font-weight: 400;
+}
+
+.resend-link {
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.resend-link:hover {
+    color: #003db3 !important;
+    text-decoration: underline !important;
+}
+
+.resend-link.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Um box sutil para destacar a área de reenvio */
+.bg-light {
+    background-color: #f8fafc !important;
+    border: 1px dashed #e2e8f0;
+}

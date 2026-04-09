@@ -1,0 +1,49 @@
+.hero-bg {
+  /* Azul tecnológico Andrometra */
+  /*background: linear-gradient(135deg, #001f54 0%, #0052ff 100%); */
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.shippx-hero {
+    background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('/images/bg-truck.jpg') no-repeat center center; 
+    background-size: cover;
+}  
+
+.category-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+  border-color: #0052ff !important;
+  box-shadow: 0 15px 30px rgba(0, 82, 255, 0.1);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #f0f4ff;
+  color: #0052ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card:hover .icon-circle {
+  background-color: #0052ff;
+  color: #000000;
+}
+
+.btn-primary {
+  background-color: #0052ff;
+  border: none;
+}
+
+.stats-box h3 {
+  font-size: 2.5rem;
+}

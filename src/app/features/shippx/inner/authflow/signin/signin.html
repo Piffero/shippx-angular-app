@@ -1,0 +1,73 @@
+<div class="register-container d-flex">
+    <div class="register-overlay">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+            <div class="register-card p-5 shadow-lg rounded-4 w-100" style="max-width: 450px;">
+                
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-dark">Bem-vindo de volta</h2>
+                    <p class="text-muted">Acesse sua conta na Andrometra.</p>
+                </div>
+
+                <form [formGroup]="authForm" (ngSubmit)="handleLogin()">
+                    <div class="custom-form-group mb-3">
+                        <label for="email" class="custom-label">E-mail</label>
+                        <div class="position-relative">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="custom-input"
+                                formControlName="email"
+                                placeholder="nome@exemplo.com">
+                            <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="custom-form-group mb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label for="password" class="custom-label">Senha</label>
+                            <a routerLink="/shippx/forgot" class="text-primary small fw-bold text-decoration-none mb-1">Esqueceu a senha?</a>
+                        </div>
+                        <div class="position-relative">
+                            <input 
+                                [type]="showPassword() ? 'text' : 'password'" 
+                                id="password" 
+                                class="custom-input"
+                                formControlName="password"
+                                placeholder="••••••••">
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">                                  
+                                  <button type="button" class="btn-password-toggle me-2" (click)="showPassword.set(!showPassword())">
+                                    <i class="fa" [ngClass]="showPassword() ? 'fa-unlock' : 'fa-lock'"></i>
+                                  </button>
+                                </span>
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" formControlName="remember" id="remember">
+                        <label class="form-check-label small text-muted" for="remember">Lembrar de mim</label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn-register py-3 rounded-3" [disabled]="loading()">
+                            @if (loading()) {
+                              <span class="spinner-border spinner-border-sm me-2"></span> Entrando...
+                            } @else {
+                              Entrar na Conta
+                            }
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted small">Não tem uma conta? 
+                        <a routerLink="/shippx/signup" class="text-primary fw-bold text-decoration-none">Cadastre-se</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

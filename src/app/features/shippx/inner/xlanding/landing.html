@@ -1,0 +1,64 @@
+<section class="hero-bg shippx-hero py-5">
+  <div class="container py-5 text-center">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 p-4">
+        <h1 class="display-6 fw-bold mb-4">Encontre empresas e transporte para itens grandes, carros e muito mais.</h1>
+        <p class="fs-5 mb-5 opacity-75">Facilitamos e barateamos o envio de itens volumosos, conectando você diretamente a fornecedores com espaço extra.</p>
+        
+        <div class="d-flex flex-wrap justify-content-between gap-3">
+          <button class="btn btn-primary btn-lg py-3 shadow-lg">Obtenha um orçamento</button>
+          <button class="btn btn-outline-dark btn-lg px-4 py-3">Torne-se um Transportador</button>
+        </div>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-white">
+  <div class="container text-center">
+    <h2 class="mb-5 fw-bold">O que você precisa enviar?</h2>
+    
+    <div class="row g-4">
+      @for (cat of categories; track cat.id) {
+        <div class="col-6 col-md-4 col-lg-2" [routerLink]="cat.url">
+          <div class="category-card p-4 border rounded-3 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="mb-3">              
+              <img [src]="cat.icon">
+            </div>
+            <h6 class="mb-1 fw-bold">{{cat.name}}</h6>
+            <small class="text-muted">{{cat.sub}}</small>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-light border-top">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2 class="fw-bold mb-4">Escolha seu fornecedor e preço</h2>
+        <p class="text-muted fs-5">Nossa plataforma oferece acesso a milhares de fornecedores avaliados por outros usuários, que competem pelo seu negócio, para que você possa escolher e enviar com confiança.</p>
+        <a routerLink="/how-it-works" class="btn btn-link text-primary p-0 fw-bold text-decoration-none">
+          Como funciona para os remetentes →
+        </a>
+      </div>
+      <div class="col-md-6 mt-4 mt-md-0 text-center">
+        <div class="stats-box p-5 bg-white shadow-sm rounded-4">
+          <div class="row">
+            <div class="col-6 mb-4">
+              <h3 class="fw-bold text-primary">8M+</h3>
+              <small class="text-uppercase text-muted">Clientes</small>
+            </div>
+            <div class="col-6 mb-4">
+              <h3 class="fw-bold text-primary">42k</h3>
+              <small class="text-uppercase text-muted">Transportadores</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

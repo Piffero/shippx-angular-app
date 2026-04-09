@@ -1,0 +1,151 @@
+<div class="container-fluid py-4 bg-light">
+  <div class="row">
+    <aside class="col-lg-3">
+      <div class="card border-0 shadow-sm p-3 sticky-top" style="top: 20px;">
+        <div class="d-flex justify-content-between mb-3">
+          <button class="btn btn-primary btn-sm" (click)="applyFilters()">Filtro</button>
+          <button class="btn btn-link btn-sm text-decoration-none" (click)="clearFilters()">Limpar filtro</button>
+        </div>
+        
+        <h6 class="fw-bold mb-3">Filtro de remessa</h6>
+        <div class="mb-3">
+          <label class="small fw-bold">Local de retirada</label>
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="fa fa-arrow-up"></i></span>
+            <input type="text" class="form-control" placeholder="Procurar" 
+                    [(ngModel)]="selectedFilters.location" (keyup.enter)="applyFilters()">
+            <span class="input-group-text btn-primary text-white"><i class="fa fa-map-marker"></i></span>
+          </div>
+        </div>
+
+        <div class="list-group list-group-flush small">
+
+            <div class="list-group-item bg-transparent border-secondary">
+                <div class="toggle-expand d-flex justify-content-between align-items-center" (click)="toggleExpand('categories')">
+                    Todas as categorias 
+                    <i class="fa" [class.fa-chevron-down]="!expandedFilters()['categories']" [class.fa-chevron-up]="expandedFilters()['categories']"></i>
+                </div>
+
+                @if (expandedFilters()['categories']) {
+                    <div class="mt-3 ps-2">
+                        @for (cat of categories(); track cat.id) {
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" [id]="cat.id" 
+                                    (change)="onCategoryChange(cat.id, $event)" [checked]="selectedFilters.categories.has(cat.id)">
+                                <label class="form-check-label small" [for]="cat.id">{{ cat.name }}</label>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+          
+            <div class="list-group-item bg-transparent border-secondary">
+                <div class="toggle-expand d-flex justify-content-between align-items-center" (click)="toggleExpand('weight')">
+                    Peso <i class="fa" [class.fa-chevron-down]="!expandedFilters()['weight']" [class.fa-chevron-up]="expandedFilters()['weight']"></i>
+                </div>
+
+                @if (expandedFilters()['weight']) {
+                    <div class="mt-3 row gx-2">
+                        <div class="col-6">
+                        <input type="number" class="form-control form-control-sm border-1" 
+                                placeholder="Min (kg)" [(ngModel)]="selectedFilters.minWeight">
+                        </div>
+                        <div class="col-6">
+                        <input type="number" class="form-control form-control-sm border-1" 
+                                placeholder="Max (kg)" [(ngModel)]="selectedFilters.maxWeight">
+                        </div>
+                    </div>
+                    }
+            </div>
+          
+        </div>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex gap-2 align-items-center">
+          <input type="date" class="form-control form-control-sm" placeholder="Data de retirada">
+          <select class="form-select form-select-sm">
+            <option>Listado recentemente</option>
+          </select>
+        </div>
+        <div class="btn-group shadow-sm">
+          <button class="btn btn-primary btn-sm"><i class="fa fa-list-ul"></i></button>
+          <button class="btn btn-white btn-sm text-muted"><i class="fa fa-map"></i></button>
+        </div>
+      </div>
+
+      <div class="row px-3 py-2 text-muted small fw-bold text-uppercase d-none d-lg-flex">
+        <div class="col-3">Escolher</div>
+        <div class="col-3">Entrega</div>
+        <div class="col-2 text-center">Viagem</div>
+        <div class="col-2">Cotações</div>
+        <div class="col-2 text-end">Mais</div>
+      </div>
+
+      @for (item of opportunities(); track item.id) {
+        <div class="card border-0 shadow-sm mb-2 opportunity-card" [class.expanded]="expandedId() === item.id">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-lg-3">
+                <div class="d-flex align-items-center gap-2">
+                  <img [src]="item.shipment_categories?.icon_url" 
+                        class="img-fluid rounded" style="width: 60px;"
+                        [alt]="item.shipment_categories?.name">
+                  <div>
+                    <div class="fw-bold text-primary"><i class="bi bi-geo-alt-fill"></i> {{ item.shippx_details.pickup_location.city }}</div>
+                    <div class="small text-muted">{{ item.sender_details.pickup_date | date:'dd/MM/yyyy' }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="fw-bold text-dark"><i class="bi bi-geo-alt"></i> {{ item.shippx_details.delivery_location.city }}</div>
+                <div class="small text-muted">{{ item.sender_details.delivery_date | date:'dd/MM/yyyy' }}</div>
+              </div>
+
+              <div class="col-lg-2 text-center small text-muted">
+                 1300 Km
+              </div>
+
+              <div class="col-lg-2 small">
+                1 citação
+              </div>
+
+              <div class="col-lg-2 text-end">
+                <button (click)="toggleExpand(item.id)" class="btn btn-link text-primary p-0">
+                  <i class="fa" [class.fa-chevron-down]="!expandedFilters()[item.id]" [class.fa-chevron-up]="expandedFilters()[item.id]"></i>
+                </button>
+              </div>
+            </div>
+
+            @if (expandedFilters()[item.id]) {
+              <hr>
+              <div class="row mt-3 bg-light p-3 rounded">
+                <div class="col-md-4">
+                  <label class="small text-muted fw-bold">DETALHES DE LOCALIZAÇÃO</label>
+                  <p class="small mb-1">Retirada: {{ item.shippx_details.pickup_location.addressType }}</p>
+                  <p class="small">Entrega: {{ item.shippx_details.delivery_location.addressType }}</p>
+                </div>
+                <div class="col-md-4">
+                  <label class="small text-muted fw-bold">DETALHES</label>
+                  <p class="small mb-1">Itens: {{ item.shippx_details.items_count }}</p>
+                  <p class="small">Reboque: {{ item.sender_details.transport_type }}</p>
+                </div>
+                <div class="col-md-4 text-center border-start">
+                  <div class="h5 fw-bold text-primary">EUR 1.200</div>
+                  <button class="btn btn-primary w-100 mt-2" [routerLink]="[item.id]">Visualizar</button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      } @empty {
+        <div class="text-center p-5 bg-white rounded shadow-sm">
+          <p class="text-muted">Nenhuma oportunidade disponível no momento.</p>
+        </div>
+      }
+    </main>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<header class="header-main shadow-sm">
+  <nav class="container d-flex justify-content-between align-items-center py-3">
+
+    <div class="d-flex align-items-left gap-2">
+      <div class="logo d-flex justify-content-between gap-2">
+        <a routerLink="/"><img src="andromeda.png" width="48px" alt="Andromedra"></a>
+        <p class="pt-3">Andromedra</p>
+      </div>
+
+      <ul class="nav-ctrl nav-links d-none d-md-flex gap-2">
+        @if (user$ | async; as user) {
+          @if (user.role === 'ADMIN' || user.role === 'CLIENT') {
+            <li><a routerLink="/shippx/shipping" class="btn btn-outline text-dark">Enviar Agora</a></li>
+          }
+
+          @if (user.role === 'ADMIN' || user.role === 'CARRIER') {
+            <li><a routerLink="/shippx/opportunities" class="btn btn-outline text-dark">Localizar Oportunidade</a></li>
+          }
+
+          <li><a routerLink="/shippx/dashboard" class="btn btn-outline-primary">Painel de Controle</a></li>
+        } @else {
+          <li><a routerLink="/shippx/shipping" class="btn btn-outline text-dark">Enviar Agora</a></li>
+          <li><a routerLink="/shippx/opportunities" class="btn btn-outline text-dark">Localizar Oportunidade</a></li>
+          <li><a routerLink="/" fragment="carriers" class="btn btn-outline text-dark">Para Transportadoras</a></li>
+          <li><a routerLink="/" fragment="solutions" class="btn btn-outline text-dark">Para Negócios</a></li>
+        }
+        
+      </ul>
+    </div>
+    
+
+    <div class="auth-buttons d-flex  gap-2">
+      @if (!(isLoggedIn$ | async)) {
+      <ng-container>
+        <button class="btn btn-outline text-dark" routerLink="/shippx/signin">Entrar</button>
+        <button class="btn btn-outline text-dark" routerLink="/shippx/signup">Cadastrar-se</button>
+      </ng-container>
+      } @else {
+      <ng-container>
+        <div class="user-profile">
+          <span class="me-2">Olá, {{ (user$ | async)?.name }}</span>
+          <button class="btn btn-outline-danger btn-sm" (click)="logout()">Sair</button>
+        </div>
+      </ng-container>
+      }
+    </div>
+  </nav>
+</header>
