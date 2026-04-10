@@ -1,0 +1,106 @@
+<div class="package-manager-container p-4">
+  
+  <header class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div>
+      <h2 class="h4 fw-bold text-dark mb-1">Painel de Remessas</h2>
+      <p class="text-muted small mb-0">Gerencie suas coletas e entregas em tempo real.</p>
+    </div>
+    
+    <div class="filter-group d-flex p-1 bg-white border rounded-pill shadow-sm">
+      <button (click)="setFilter('ALL')" 
+              [class.btn-primary]="activeFilter() === 'ALL'" 
+              class="btn btn-sm rounded-pill px-3">Todos</button>
+      <button (click)="setFilter('IN_HUB')" 
+              [class.btn-warning]="activeFilter() === 'IN_HUB'" 
+              class="btn btn-sm rounded-pill px-3">No Posto</button>
+    </div>
+  </header>
+
+  @if (messageEvent()) {
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+      <i class="bi bi-exclamation-octagon-fill me-2"></i>
+      {{ messageEvent() }}
+      <button type="button" class="btn-close" (click)="messageEvent.set('')"></button>
+    </div>
+  }
+
+  <div class="row g-3">
+    @if (isLoading()) {
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2 text-muted">Sincronizando encomendas...</p>
+      </div>
+    } @else {
+      @for (pkg of filteredPackages(); track pkg.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card border-0 shadow-sm h-100 package-card">
+            <div class="card-body">
+              
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge rounded-pill" [ngClass]="getStatusClass(pkg.status)">
+                  {{ getStatusLabel(pkg.status) }}
+                </span>
+                <img [src]="'assets/icons/' + pkg.origin_platform.toLowerCase() + '.png'" 
+                     [alt]="pkg.origin_platform" 
+                     style="height: 20px;" 
+                     onerror="this.style.display='none'">
+              </div>
+
+              <h6 class="fw-bold mb-1">Pedido #{{ pkg.external_order_id }}</h6>
+              <p class="text-muted small mb-3">
+                <i class="bi bi-shop me-1"></i> Origem: {{ pkg.origin_platform }}
+              </p>
+
+              <div class="p-2 bg-light rounded mb-3">
+                <small class="d-block text-muted">Posto de Coleta:</small>
+                <span class="small fw-semibold">
+                  <i class="bi bi-geo-alt-fill text-danger me-1"></i>
+                  {{ pkg.partner_hubs?.name || 'Aguardando Postagem' }}
+                </span>
+              </div>
+
+              <div class="progress mb-2" style="height: 6px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     [style.width]="getProgressWidth(pkg.status)"></div>
+              </div>
+
+              <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-sm btn-outline-secondary flex-grow-1" (click)="viewDetails(pkg)">
+                  <i class="fa" [ngClass]="expandedPackageId() === pkg.id ? 'fa-chevron-up': 'fa-chevron-down'"></i>
+                  {{ expandedPackageId() === pkg.id ? 'Fechar' : 'Detalhes' }}
+                </button>
+
+                @if (pkg.status === 'READY_TO_POST') {
+                <rd-shippings-lb-printing [packageData]="pkg" class="flex-grow-1"></rd-shippings-lb-printing>
+                }
+              </div>
+
+              @if (expandedPackageId() === pkg.id) {
+                <div class="details-section mt-3 border-top pt-3 animate__animated animate__fadeIn">
+                  <rd-shippings-landmarks [packageData]="pkg"></rd-shippings-landmarks>
+                </div>
+              }
+
+
+            </div>
+
+            <div class="card-footer bg-white border-top-0 d-flex gap-2 pb-3">
+              
+              
+              @if (pkg.status === 'READY_TO_POST') {
+                <button class="btn btn-sm btn-primary flex-grow-1" (click)="printLabel(pkg)">
+                  <i class="bi bi-printer me-1"></i> Etiqueta
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-12 text-center py-5 bg-white rounded shadow-sm">
+          <i class="bi bi-box2 text-light display-1"></i>
+          <p class="text-muted mt-3">Nenhum pacote disponível para entrega no momento.</p>
+        </div>
+      }
+    }
+  </div>
+</div>

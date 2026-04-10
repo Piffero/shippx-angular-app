@@ -1,0 +1,28 @@
+.integration-panel {
+  .transition-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid transparent !important;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+      border-color: #dee2e6 !important;
+    }
+  }
+
+  .logo-container {
+    height: 60px;
+    width: 60px;
+    .marketplace-logo {
+      max-height: 100%;
+      object-fit: contain;
+      /* Filtro para deixar logos cinzas se não estiver conectado (opcional) */
+      filter: grayscale(1);
+    }
+  }
+
+  .btn-primary {
+    background-color: #0046ad; /* Azul ShippX */
+    border: none;
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="card border-0 shadow-sm p-4">
+  <div class="mb-4">
+    <h5 class="fw-bold">Meu Veículo de Entrega</h5>
+    <p class="text-muted small">Essas informações ajudam a filtrar as melhores rotas para sua capacidade.</p>
+  </div>
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="saveVehicle()">
+    
+    <label class="form-label small fw-bold mb-3">Tipo de Veículo</label>
+    <div class="row g-3 mb-4">
+      @for (v of vehicleTypes; track v.id) {
+        <div class="col-6 col-md-3">
+          <div class="vehicle-option p-3 border rounded text-center cursor-pointer"
+               [class.active]="vehicleForm.get('type')?.value === v.id"
+               (click)="vehicleForm.patchValue({type: v.id}); onTypeChange(v.id)">
+            <i class="bi {{ v.icon }} d-block mb-2 fs-3"></i>
+            <span class="small fw-bold">{{ v.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label small fw-bold">Modelo / Ano</label>
+        <input type="text" formControlName="model" class="form-control" placeholder="Ex: Fiat Fiorino 2022">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label small fw-bold">Placa (Padrão Mercosul)</label>
+        <input type="text" formControlName="license_plate" class="form-control" placeholder="ABC1D23">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label small fw-bold">Capacidade Estimada (Nº de Pacotes Padrão)</label>
+        <div class="input-group">
+          <input type="number" formControlName="capacity_volume" class="form-control">
+          <span class="input-group-text bg-light text-muted small">Volumes</span>
+        </div>
+        <div class="form-text mt-2" style="font-size: 0.75rem;">
+          <i class="bi bi-info-circle me-1"></i> 
+          Isso nos ajuda a não te oferecer rotas que não cabem no seu veículo.
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 text-light">
+
+    <button type="submit" [disabled]="vehicleForm.invalid" class="btn btn-primary px-5 py-2 fw-bold">
+      Salvar Configurações de Frota
+    </button>
+  </form>
+</div>

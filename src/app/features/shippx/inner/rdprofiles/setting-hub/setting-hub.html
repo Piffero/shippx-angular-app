@@ -1,0 +1,52 @@
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm p-4 h-100">
+      <h5 class="fw-bold mb-4">Informações do Ponto ShippX</h5>
+      
+      <form [formGroup]="hubForm" (ngSubmit)="saveHubSettings()">
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Nome Exibido no Mapa</label>
+          <input type="text" formControlName="name" class="form-control" placeholder="Ex: Padaria do Centro">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Endereço Completo</label>
+          <input type="text" formControlName="address" class="form-control" placeholder="Rua, Número, Bairro, Cidade">
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-6">
+            <label class="form-label small fw-bold">Abre às</label>
+            <input type="time" formControlName="open_time" class="form-control">
+          </div>
+          <div class="col-6">
+            <label class="form-label small fw-bold">Fecha às</label>
+            <input type="time" formControlName="close_time" class="form-control">
+          </div>
+        </div>
+
+        <div class="bg-light p-3 rounded mb-4">
+          <p class="small text-muted mb-2"><i class="bi bi-geo-alt me-1"></i> Coordenadas Capturadas:</p>
+          <div class="d-flex gap-3">
+            <code class="small">Lat: {{ hubForm.value.latitude | number:'1.4-4' }}</code>
+            <code class="small">Lng: {{ hubForm.value.longitude | number:'1.4-4' }}</code>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="hubForm.invalid" class="btn btn-primary w-100 py-2 fw-bold">
+          Salvar Configurações do Posto
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm h-100 overflow-hidden">
+      <div class="p-3 bg-white border-bottom">
+        <h6 class="mb-0 fw-bold">Localização no Mapa</h6>
+        <small class="text-muted">Arraste o marcador exatamente sobre o seu estabelecimento.</small>
+      </div>
+      <div id="hub-mini-map" style="height: 100%; min-height: 400px;"></div>
+    </div>
+  </div>
+</div>
