@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Grid } from './grid';
+import { StatusSummary } from './status-summary';
 
-describe('Grid', () => {
-  let component: Grid;
-  let fixture: ComponentFixture<Grid>;
+describe('StatusSummary', () => {
+  let component: StatusSummary;
+  let fixture: ComponentFixture<StatusSummary>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Grid]
+      imports: [StatusSummary]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Grid);
+    fixture = TestBed.createComponent(StatusSummary);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

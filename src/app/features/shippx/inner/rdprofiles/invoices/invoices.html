@@ -1,1 +1,83 @@
-<p>invoices works!</p>
+<div class="invoices-container animate__animated animate__fadeIn">
+  
+  <div class="card border-0 shadow-sm mb-4 bg-primary text-white overflow-hidden position-relative">
+    <div class="card-body p-4 position-relative" style="z-index: 2;">
+      <div class="row align-items-center">
+        <div class="col">
+          <h6 class="text-white-50 mb-1">Saldo Disponível</h6>
+          <h2 class="fw-bold mb-0">R$ {{ totalBalance() | number:'1.2-2' }}</h2>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-light fw-bold text-primary rounded-pill px-4">
+            <i class="bi bi-wallet2 me-2"></i>Solicitar Saque
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bg-decoration"></div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+          <h6 class="fw-bold mb-0">Atividades Recentes</h6>
+          <button class="btn btn-sm btn-outline-secondary">Ver tudo</button>
+        </div>
+        
+        <div class="list-group list-group-flush">
+          @for (t of transactions(); track t.id) {
+            <div class="list-group-item d-flex align-items-center p-3">
+              <div class="icon-box me-3 rounded-circle" [class.bg-success-subtle]="t.type === 'credit'" [class.bg-danger-subtle]="t.type === 'debit'">
+                <i class="bi" [ngClass]="t.type === 'credit' ? 'bi-arrow-up-right text-success' : 'bi-arrow-down-left text-danger'"></i>
+              </div>
+              
+              <div class="flex-grow-1">
+                <h6 class="mb-0 fw-bold">{{ t.desc }}</h6>
+                <small class="text-muted">{{ t.date | date:'dd/MM/yyyy HH:mm' }}</small>
+              </div>
+
+              <div class="text-end">
+                <div class="fw-bold" [class.text-success]="t.type === 'credit'" [class.text-danger]="t.type === 'debit'">
+                  {{ t.type === 'credit' ? '+' : '-' }} R$ {{ t.value | number:'1.2-2' }}
+                </div>
+                <small class="badge" [class.bg-success]="t.status === 'paid'" [class.bg-warning]="t.status === 'pending'">
+                  {{ t.status === 'paid' ? 'Concluído' : 'Pendente' }}
+                </small>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm p-4 mb-4">
+        <h6 class="fw-bold mb-3">Resumo do Mês</h6>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-muted">Ganhos em rotas</span>
+          <span class="text-success fw-bold">R$ 450,00</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span class="text-muted">Assinaturas</span>
+          <span class="text-danger fw-bold">- R$ 49,99</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <span class="fw-bold">Líquido</span>
+          <span class="fw-bold text-primary">R$ 400,01</span>
+        </div>
+      </div>
+
+      <div class="alert alert-info border-0 shadow-sm p-3">
+        <div class="d-flex gap-3">
+          <i class="bi bi-star-fill text-warning fs-3"></i>
+          <div>
+            <h6 class="fw-bold mb-1">Você é Motorista Pro!</h6>
+            <p class="small mb-0">Sua taxa de intermediação é reduzida em 50%. Continue assim!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

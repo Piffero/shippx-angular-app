@@ -1,0 +1,80 @@
+<div class="summary-container">
+  
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="stat-card p-4 rounded shadow-sm bg-white border-0">
+        <h6 class="text-muted small fw-bold text-uppercase mb-1">{{ stats().title }}</h6>
+        <h2 class="fw-bold text-primary mb-0">{{ stats().primaryMetric }}</h2>
+        <p class="small text-muted mt-2 mb-0">
+          <i class="bi bi-graph-up-arrow text-success me-1"></i> +12% em relação à última semana
+        </p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="stat-card p-4 rounded shadow-sm bg-white border-0">
+        @switch (role()) {
+          @case ('CLIENT') {
+            <h6 class="text-muted small fw-bold text-uppercase mb-1">Aguardando Postagem</h6>
+            <h2 class="fw-bold text-warning mb-0">08</h2>
+          }
+          @case ('BROKER') {
+            <h6 class="text-muted small fw-bold text-uppercase mb-1">Espaço Ocupado</h6>
+            <h2 class="fw-bold text-danger mb-0">65%</h2>
+          }
+          @case ('CARRIER') {
+            <h6 class="text-muted small fw-bold text-uppercase mb-1">Km Rodados</h6>
+            <h2 class="fw-bold text-info mb-0">420km</h2>
+          }
+        }
+        <p class="small text-muted mt-2 mb-0">Atualizado agora</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="stat-card p-4 rounded shadow-sm bg-primary text-white border-0">
+        <h6 class="text-white-50 small fw-bold text-uppercase mb-1">Status Pro</h6>
+        <h2 class="fw-bold mb-0">Ativo</h2>
+        <p class="small text-white-50 mt-2 mb-0">Vence em 15 dias</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h6 class="fw-bold mb-0">{{ stats().chartLabel }}</h6>
+      <select class="form-select form-select-sm w-auto border-0 bg-light">
+        <option>Últimos 7 dias</option>
+        <option>Último mês</option>
+      </select>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h6 class="fw-bold mb-0">Atividade Semanal</h6>
+        <small class="text-muted">Desempenho baseado no seu perfil {{ role() }}</small>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" type="button">
+          Esta Semana
+        </button>
+      </div>
+    </div>
+    
+    <div class="chart-wrapper">
+      @if (chartOptions) {
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [stroke]="chartOptions.stroke"
+          [dataLabels]="chartOptions.dataLabels"
+          [fill]="chartOptions.fill"
+          [colors]="chartOptions.colors"
+          [grid]="chartOptions.grid"
+          [yaxis]="chartOptions.yaxis"
+        ></apx-chart>
+      }
+    </div>
+  </div>
+</div>

@@ -7,7 +7,6 @@ import { AuthService } from '../authflow/auth.service';
 })
 export class CarrierService {
   private supabase = inject(SupabaseService).client;
-  private auth = inject(AuthService);
 
   /**
    * Atualiza os dados do veículo do transportador
@@ -58,5 +57,45 @@ export class CarrierService {
 
     if (error) return null;
     return data;
+  }
+
+  /**
+   * Busca hubs que possuem pacotes aguardando coleta
+   */
+  async getAvailableOpportunities() {
+    // Buscamos os pacotes agrupando por hub_id
+    // Dica: Em uma escala maior, usaríamos uma RPC (Stored Procedure) no Postgres
+    const { data, error } = await this.supabase
+      .from('shipments')
+      .select(`
+        hub_id,
+        partner_hubs (
+          id,
+          name,
+          address,
+          latitude,
+          longitude
+        )
+      `)
+      .eq('status', 'IN_HUB'); // Apenas o que já foi bipado pelo dono do posto
+
+    if (error) throw error;
+
+    // Lógica de Agrupamento (Transforma lista de pacotes em lista de Oportunidades)
+    const opportunities = data.reduce((acc: any, curr: any) => {
+      const hubId = curr.hub_id;
+      if (!acc[hubId]) {
+        acc[hubId] = {
+          hub: curr.partner_hubs,
+          total_packages: 0,
+          estimated_payout: 0
+        };
+      }
+      acc[hubId].total_packages += 1;
+      acc[hubId].estimated_payout += 2.50; // Exemplo: R$ 2,50 por pacote coletado
+      return acc;
+    }, {});
+
+    return Object.values(opportunities);
   }
 }

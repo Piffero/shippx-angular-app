@@ -13,17 +13,8 @@ export const shippxRoutes: Routes = [
 
             { path: 'dashboard', loadChildren: () => import('./inner/rdprofiles/profiles.router').then(m => m.profileRouter), canActivate: [authGuard] },
             { path: 'shippings', loadChildren: () => import('./inner/shippings/shippings.router'). then(m => m.ShippingsRouter)},
+            { path: 'opportunities', loadChildren: () => import('./inner/opportun/opportun.router').then(m => m.opportunRouter)},
 
-
-
-
-
-
-            //{ path: 'opportunities', loadChildren: () => import('./inner/opportunity/opportunity.router').then(m => m.opportunityRoutes) },
-         
-
-            //{ path: 'ctracking', loadComponent: () => import('./inner/customer/tracking/tracking').then(m => m.Tracking), canActivate: [authGuard, roleGuard], data: { role: 'CLIENT' } },
-            //{ path: 'ttracking', loadComponent: () => import('./inner/transporter/tracking/tracking').then(m => m.Tracking), canActivate: [authGuard, roleGuard], data: { role: 'CARRIER' } },
             { path: '**', redirectTo: '', pathMatch: 'full' }
         ]
     }
