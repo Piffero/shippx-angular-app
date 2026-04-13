@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from '../supabase/supabase.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { UserProfile } from '../../models/shered/user-profile.model';
 
 @Injectable({
@@ -25,6 +25,12 @@ export class AuthService {
   async getUser() {
     const { data: { user } } = await this.supabase.auth.getUser();
     return user;
+  }
+
+  get isLoggedIn(): Observable<boolean> {
+    return this.userProfile$.pipe(
+      map(profile => !!profile)
+    );
   }
 
   async signIn(email: string, password: string): Promise<{ data: any; error: any }> {

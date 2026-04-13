@@ -33,7 +33,7 @@ export type ChartOptions = {
   styleUrl: './status-summary.css',
 })
 export class StatusSummary {
-  role = input.required<'CLIENT' | 'BROKER' | 'CARRIER' | undefined>();
+  role = input.required<'CLIENT' | 'BROKER' | 'CARRIER' | 'ADMIN' | undefined>();
   chart = viewChild<ChartComponent>("chart");
 
   public chartOptions: Partial<ChartOptions> | any;

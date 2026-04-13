@@ -1,17 +1,19 @@
 import { Component, signal } from '@angular/core';
 import { Marketplace } from '../../../../../core/models/shered/marketplace.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'rd-setting-int',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './setting-int.html',
   styleUrl: './setting-int.css',
 })
 export class SettingInt {
   marketplaces = signal<Marketplace[]>([
-    { id: 'shopee', name: 'Shopee', logo: 'assets/logos/shopee.png', connected: false, status: 'none' },
-    { id: 'mercadolivre', name: 'Mercado Livre', logo: 'assets/logos/ml.png', connected: true, status: 'active' },
-    { id: 'shein', name: 'Shein', logo: 'assets/logos/shein.png', connected: false, status: 'none' }
+    { id: 'roboticdata', name: 'Andromedra', logo: 'andromeda.png', connected: true, status: 'active'},
+    { id: 'shopee', name: 'Shopee', logo: 'images/logos/shopee.png', connected: false, status: 'none' },
+    { id: 'mercadolivre', name: 'Mercado Livre', logo: 'images/logos/ml.png', connected: true, status: 'active' },
+    { id: 'shein', name: 'Shein', logo: 'images/logos/shein.png', connected: false, status: 'none' }
   ]);
 
   connect(marketplaceId: string) {

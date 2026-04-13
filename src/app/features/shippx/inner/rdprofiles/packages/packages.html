@@ -1,1 +1,57 @@
-<p>packages works!</p>
+<div class="package-container animate__animated animate__fadeIn">
+  
+  @if (!isPro()) {
+    <div class="sales-lp text-center p-5 rounded-4 bg-white shadow-sm border">
+      <div class="badge bg-primary-subtle text-primary mb-3 px-3 py-2 rounded-pill fw-bold">
+        PLANO EXCLUSIVO
+      </div>
+      <h2 class="fw-bold mb-3">Seja um Transportador Pro</h2>
+      <p class="text-muted mb-5 mx-auto" style="max-width: 500px;">
+        Aumente sua margem de lucro e tenha prioridade nas melhores rotas da região.
+      </p>
+
+      <div class="pricing-card mx-auto mb-5 p-4 rounded-4 shadow border-primary border-2">
+        <div class="h6 text-muted text-uppercase">Plano Mensal</div>
+        <div class="display-4 fw-bold text-dark">R$ 49,90</div>
+        <div class="text-muted small">Cobrados mensalmente</div>
+        
+        <ul class="list-unstyled mt-4 text-start d-inline-block">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Taxa 0% sobre entregas</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Suporte humanizado 24h</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Relatórios de ganhos detalhados</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Integração Mutiplataformas</li>
+        </ul>
+
+        <button (click)="subscribe()" class="btn btn-primary btn-lg w-100 mt-4 py-3 fw-bold rounded-3 shadow-sm">
+          ASSINAR AGORA
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="success-layout text-center p-5 rounded-4 bg-success-subtle border border-success border-opacity-25">
+      <div class="success-icon mb-4">
+        <i class="bi bi-check-seal-fill text-success display-1"></i>
+      </div>
+      <h3 class="fw-bold text-success-emphasis">Assinatura Ativa!</h3>
+      <p class="mb-4">Você está aproveitando todos os benefícios do ShippX Pro.</p>
+      
+      <div class="row g-3 justify-content-center">
+        <div class="col-md-4">
+          <div class="card border-0 p-3 shadow-sm">
+            <small class="text-muted">Próximo Vencimento</small>
+            <div class="fw-bold">15/05/2026</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 p-3 shadow-sm">
+            <small class="text-muted">Status</small>
+            <div class="text-success fw-bold">Renovação Automática</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-outline-secondary btn-sm mt-5">Gerenciar Assinatura</button>
+    </div>
+  }
+
+</div>

@@ -10,19 +10,20 @@
       <ul class="nav-ctrl nav-links d-none d-md-flex gap-2">
         @if (user$ | async; as user) {
           @if (user.role === 'ADMIN' || user.role === 'CLIENT') {
-            <li><a routerLink="/shippx/shipping" class="btn btn-outline text-dark">Enviar Agora</a></li>
+            <li><a routerLink="/shippx/packages" class="btn btn-outline text-dark">Enviar Agora</a></li>
           }
-
           @if (user.role === 'ADMIN' || user.role === 'CARRIER') {
             <li><a routerLink="/shippx/opportunities" class="btn btn-outline text-dark">Localizar Oportunidade</a></li>
           }
+          @if (user.role === 'ADMIN' || user.role === 'BROKER') {
+            <li><a routerLink="/shippx/packages" class="btn btn-outline text-dark">Gestão de Pacotes</a></li>
+          }
 
-          <li><a routerLink="/shippx/dashboard" class="btn btn-outline-primary">Painel de Controle</a></li>
+          <li><a routerLink="/shippx/dashboard" class="btn btn-light-primary text-primary">Painel de Controle</a></li>
+
         } @else {
-          <li><a routerLink="/shippx/shipping" class="btn btn-outline text-dark">Enviar Agora</a></li>
-          <li><a routerLink="/shippx/opportunities" class="btn btn-outline text-dark">Localizar Oportunidade</a></li>
-          <li><a routerLink="/" fragment="carriers" class="btn btn-outline text-dark">Para Transportadoras</a></li>
-          <li><a routerLink="/" fragment="solutions" class="btn btn-outline text-dark">Para Negócios</a></li>
+          <li><a routerLink="/shippx/packages" class="btn btn-outline text-dark">Enviar Agora</a></li>
+          <li><a routerLink="/shippx/opportunities" class="btn btn-outline text-dark">Localizar Oportunidade</a></li>          
         }
         
       </ul>
@@ -37,8 +38,11 @@
       </ng-container>
       } @else {
       <ng-container>
-        <div class="user-profile">
-          <span class="me-2">Olá, {{ (user$ | async)?.name }}</span>
+        <div class="user-profile d-flex gap-2">
+          <div class="avatar-circle bg-primary text-white">
+              {{ (user$ | async)?.name?.charAt(0) }}
+          </div>
+          <span class="me-2 mt-2">Olá, {{ (user$ | async)?.name }}</span>
           <button class="btn btn-outline-danger btn-sm" (click)="logout()">Sair</button>
         </div>
       </ng-container>

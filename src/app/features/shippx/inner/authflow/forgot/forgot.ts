@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SupabaseAuthService } from '../../../../../core/services/supabase-auth.service';
+import { AuthService } from '../../../../../core/services/authflow/auth.service';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './forgot.css',
 })
 export class Forgot {
-  private _supabaseAuthService = inject(SupabaseAuthService);
+  private _authService = inject(AuthService);
   private _router = inject(Router);
 
   // Passos: 'EMAIL' | 'CODE' | 'PASSWORD' = 'EMAIL';
@@ -42,7 +42,7 @@ export class Forgot {
     if (this.resendTimer() > 0 || this.loadingResend()) return;
 
     this.loadingResend.set(true);
-    const { error } = await this._supabaseAuthService.resetPasswordForEmail(this.email());
+    const { error } = await this._authService.resetPasswordForEmail(this.email());
     
     if (!error) {
       this.startResendTimer();
@@ -59,7 +59,7 @@ export class Forgot {
     this.errorMessage.set('');
     
     try {
-      const { data, error } = await this._supabaseAuthService.resetPasswordForEmail(emailValue);
+      const { data, error } = await this._authService.resetPasswordForEmail(emailValue);
       if (!error) {
         this.currentStep.set('CODE');
       }
@@ -80,7 +80,7 @@ export class Forgot {
     this.errorMessage.set('');
 
     try {
-      const { data, error } = await this._supabaseAuthService.verifyOtp(email, code, 'recovery');
+      const { data, error } = await this._authService.verifyOtp(email, code, 'recovery');
       if (error) {
         this.errorMessage.set('Código inválido ou expirado. Tente novamente.'); return;
       }
@@ -104,7 +104,7 @@ export class Forgot {
     this.errorMessage.set('');
 
     try {
-      const { data, error } = await this._supabaseAuthService.updateUserPassword(newPasswordValue);
+      const { data, error } = await this._authService.updateUserPassword(newPasswordValue);
       if (error) {
         this.errorMessage.set('Erro ao atualizar senha.'); return;
       }

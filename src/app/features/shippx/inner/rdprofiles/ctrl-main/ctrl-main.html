@@ -5,9 +5,11 @@
                 <li class="nav-item col-3">
                     <a class="nav-link role-option" [class.active]="selectedRole() === 'status'" (click)="setRole('status')"><i class="fa fa-desktop"></i> Situação</a>
                 </li>
+                @if (profile()?.role === 'ADMIN' || profile()?.role === 'CARRIER') {
                 <li class="nav-item col-3">
                     <a class="nav-link role-option" [class.active]="selectedRole() === 'packages'" (click)="setRole('packages')"><i class="fa fa-diamond"></i> Pacotes e Serviços</a>
                 </li>
+                }
                 <li class="nav-item col-3">
                     <a class="nav-link role-option" [class.active]="selectedRole() === 'invoices'" (click)="setRole('invoices')"><i class="fa fa-credit-card"></i> Faturas</a>
                 </li>
@@ -19,40 +21,41 @@
 
         @switch (selectedRole()) {
             @case ('status') {
-                <div class="animate__animated animate__fadeIn">
-                    <!-- 
-                    <rd-status-summary [role]="profile()?.role"></rd-status-summary>
-                    -->
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="animate__animated animate__fadeIn">
+                        <rd-status-summary [role]="profile()?.role"></rd-status-summary>
+                    </div>
                 </div>
             }
             @case ('packages') {
                 <div class="animate__animated animate__fadeIn">
+                    @if (profile()?.role === 'ADMIN' || profile()?.role === 'CARRIER') {
+                        <div class="card border-0 shadow-sm p-4">
+                            <rd-rdprofiles-packages></rd-rdprofiles-packages>
+                        </div>
+                    } @else {
+                        <div class="alert alert-info border-0 shadow-sm text-center">
+                            <i class="bi bi-info-circle fs-4 d-block mb-2"></i>
+                            Esta seção é exclusiva para parceiros transportadores.
+                        </div>
+                    }
+                </div>
+            }
+            @case ('invoices') {
+                <div class="card border-0 shadow-sm p-4">
+                    <rd-rdprofile-invoices></rd-rdprofile-invoices>
+                </div>
+            }
+            @case ('settings') {
+                <div class="card border-0 shadow-sm p-4">
                     @switch (profile()?.role) {
-                        @case ('CLIENT') { 
-                            <!--
-                            <rd-package-status></rd-package-status> <hr>
-                            <rd-hubs-map></rd-hubs-map> 
-                            -->
-                        }
-                        @case ('BROKER') { 
-                            <!--
-                            <rd-hub-inventory></rd-hub-inventory> 
-                            -->
-                        }
-                        @case ('CARRIER') { 
-                            <!--
-                            <rd-delivery-opportunities></rd-delivery-opportunities> 
-                            -->
-                        }
-
-                        @case ('settings') {
-                            <div class="card border-0 shadow-sm p-4">
-                                @switch (profile()?.role) {
-                                    @case ('CLIENT') {  <rd-setting-int></rd-setting-int> }
-                                    @case ('BROKER') {  <rd-setting-hub></rd-setting-hub> }
-                                    @case ('CARRIER') { <rd-setting-veh></rd-setting-veh> }
-                                }
-                            </div>
+                        @case ('CLIENT') {  <rd-setting-int></rd-setting-int> }
+                        @case ('BROKER') {  <rd-setting-hub></rd-setting-hub> }
+                        @case ('CARRIER') { <rd-setting-veh></rd-setting-veh> }
+                        @case ('ADMIN') {
+                            <rd-setting-int></rd-setting-int>
+                            <rd-setting-hub></rd-setting-hub>
+                            <rd-setting-veh></rd-setting-veh>
                         }
                     }
                 </div>

@@ -3,7 +3,7 @@ export interface UserProfile {
   organization_id: string;
   email: string;
   full_name: string;
-  role: string;
+  role: UserRole;
   company_name: string;
   avatar_url: string;
   bio: string;
@@ -12,6 +12,7 @@ export interface UserProfile {
   address_details: string;
   carrier_details: string;
   statistics: string;
+  is_pro: boolean;
   created_at: string;
 }
 
@@ -20,3 +21,5 @@ export interface Organizations {
   name: string;
   created_at: string;
 }
+
+export type UserRole = "CLIENT" | "BROKER" | "CARRIER" | "ADMIN";

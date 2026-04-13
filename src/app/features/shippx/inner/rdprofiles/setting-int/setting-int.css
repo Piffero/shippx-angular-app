@@ -10,8 +10,8 @@
   }
 
   .logo-container {
-    height: 60px;
-    width: 60px;
+    height: 160px;
+    width: 160px;
     .marketplace-logo {
       max-height: 100%;
       object-fit: contain;

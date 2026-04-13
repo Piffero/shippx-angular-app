@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { SupabaseAuthService } from '../services/supabase-auth.service';
+import { AuthService } from '../services/authflow/auth.service';
 import { map, take } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(SupabaseAuthService);
+  const authService = inject(AuthService);
   const router = inject(Router);
 
   return authService.isLoggedIn.pipe(

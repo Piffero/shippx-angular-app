@@ -22,7 +22,7 @@ export class Landmarks {
       title: 'Etiqueta Gerada',
       description: `Pedido sincronizado da plataforma ${pkg.origin_platform}`,
       date: pkg.created_at,
-      icon: 'bi-file-earmark-check',
+      icon: 'fa-print',
       completed: true
     });
 
@@ -33,7 +33,7 @@ export class Landmarks {
         title: 'Recebido no Posto',
         description: `Pacote entregue no ponto: ${pkg.partner_hubs?.name || 'Hub Parceiro'}`,
         date: pkg.updated_at, // Aqui você usaria o campo específico de entrada no hub se tiver
-        icon: 'bi-house-check',
+        icon: 'fa-home',
         completed: true
       });
     }
@@ -45,7 +45,7 @@ export class Landmarks {
         title: 'Em Trânsito',
         description: 'O motorista coletou o pacote e está em rota de entrega.',
         date: pkg.updated_at,
-        icon: 'bi-truck',
+        icon: 'fa-truck',
         completed: true
       });
     }
@@ -57,7 +57,7 @@ export class Landmarks {
         title: 'Entregue no Destino',
         description: 'Pacote entregue no Centro de Distribuição Final.',
         date: pkg.updated_at,
-        icon: 'bi-check2-circle',
+        icon: 'fa-check-circle-o',
         completed: true
       });
     }

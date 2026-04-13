@@ -42,3 +42,47 @@ header {
 img, svg {
     vertical-align: middle;
 }
+
+.avatar-circle {
+  /* Configurações de Tamanho e Forma */
+  width: 40px;           /* Tamanho padrão */
+  height: 40px;
+  border-radius: 50%;    /* Garante que seja um círculo */
+  
+  /* Centralização do Conteúdo (Inicial do Nome) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Tipografia e Cores */
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #0d6efd;  /* Cor primary padrão */
+  
+  /* Estética */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  user-select: none;
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Modificadores de tamanho (caso precise de um avatar maior no perfil) */
+  &.lg {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  &.sm {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+}
