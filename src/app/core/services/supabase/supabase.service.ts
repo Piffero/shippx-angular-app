@@ -27,21 +27,4 @@ export class SupabaseService {
     return this._currentUser.value?.id;
   }
 
-  /**
-   * Helper para upload de arquivos (Útil para fotos de comprovantes no Hub)
-   */
-  async uploadFile(bucket: string, path: string, file: File) {
-    return await this.client.storage.from(bucket).upload(path, file);
-  }
-
-  /**
-   * Helper para Realtime (Crucial para o PackageStatusComponent)
-   * Escuta mudanças em uma tabela específica
-   */
-  subscribeToTable(table: string, callback: (payload: any) => void) {
-    return this.client
-      .channel(`public:${table}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: table }, callback)
-      .subscribe();
-  }
 }
