@@ -1,0 +1,21 @@
+.opportunity-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 16px;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.route-line {
+  border-left: 2px dashed #e2e8f0;
+  height: 20px;
+  margin-left: 6px;
+  margin-bottom: 8px;
+  margin-top: -8px;
+}
+
+.bg-success-subtle {
+  background-color: #d1fae5;
+}

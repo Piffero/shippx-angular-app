@@ -1,0 +1,209 @@
+<div class="register-container d-flex">
+    <div class="register-overlay">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+            <div class="register-card p-4 shadow-lg rounded-4 w-100" style="max-width: 550px;">
+                
+                <div class="text-center mb-2">
+                    <h2 class="fw-bold text-dark">Crie sua conta</h2>
+                    <p class="text-muted">Junte-se à Andrometra, a logística inteligente.</p>
+                </div>
+
+                <form [formGroup]="signUpForm" (ngSubmit)="handleSignUp()">
+                    
+                    <div class="role-selector">
+                        <ul class="nav nav-tabs g-3">
+                            <li class="nav-item col-4">
+                                <a class="nav-link role-option" [class.active]="selectedRole === 'CLIENT'" (click)="selectedRole = 'CLIENT'"><i class="fa fa-user"></i> Cliente</a>
+                            </li>
+                            <li class="nav-item col-4">
+                                <a class="nav-link role-option" [class.active]="selectedRole === 'CARRIER'" (click)="selectedRole = 'CARRIER'"><i class="fa fa-truck"></i> Transportador</a>
+                            </li>
+                            <li class="nav-item col-4">
+                                <a class="nav-link role-option" [class.active]="selectedRole === 'BROKER'" (click)="selectedRole = 'BROKER'"><i class="fa fa-sliders"></i> Operadora</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-pane fade active show">
+                        <div class="d-flex gap-4 mb-4">
+                            @if (selectedRole === 'CLIENT') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesPersonal">
+                                <label class="form-check-label" for="radioTradesPersonal">Pessoal
+                                    <a href="javascript: void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('personalHelp')">?</a>
+                                    @if (openedHelp() === 'personalHelp') {
+                                    <div class="help-text help-balloon">
+                                        <p>Escolha "Pessoal" se você é um indivíduo que deseja enviar ou receber mercadorias para uso pessoal, sem fins comerciais.</p>
+                                    </div>
+                                    }
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tradeType" id="radioTradesBusiness">
+                                <label class="form-check-label" for="radioTradesBusiness">Negócios
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('business')">?</a>
+                                    @if (openedHelp() === 'business') {
+                                        <div class="help-text help-balloon">
+                                            <p>Escolha "Negócios" para envios comerciais ou corporativos.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div>
+                            } @else if (selectedRole === 'CARRIER') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tradeType" id="radioTradesPersonal">
+                                <label class="form-check-label" for="radioTradesPersonal">Particular
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('carrierPrivate')">?</a>
+                                    @if (openedHelp() === 'carrierPrivate') {
+                                        <div class="help-text help-balloon">
+                                            <p>Autônomo com veículo próprio.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tradeType" id="radioTradesLogistics">
+                                <label class="form-check-label" for="radioTradesLogistics">Transportadora
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('carrierLogistics')">?</a>
+                                    @if (openedHelp() === 'carrierLogistics') {
+                                        <div class="help-text help-balloon">
+                                            <p>Empresa de transporte ou operadora de logística.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div>
+                            } @else if (selectedRole === 'BROKER') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tradeType" id="radioTradesBrokerAgent">
+                                <label class="form-check-label" for="radioTradesBrokerAgent">Agente de Cargas/Transporte
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('brokerAgent')">?</a>
+                                    @if (openedHelp() === 'brokerAgent') {
+                                        <div class="help-text help-balloon">
+                                            <p>Empresa ou indivíduo que atua como intermediário na contratação de serviços de transporte, conectando remetentes a transportadoras.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div><br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tradeType" id="radioTradesBrokerThirdParty">
+                                <label class="form-check-label" for="radioTradesBrokerThirdParty">Logística de Terceiros
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('brokerThirdParty')">?</a>
+                                    @if (openedHelp() === 'brokerThirdParty') {
+                                        <div class="help-text help-balloon">
+                                            <p>Empresa que oferece serviços de logística para terceiros, sem possuir frota própria.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div><br>                           
+                            }
+                        </div>
+
+                        <div class="custom-form-group col-12">
+                            <label for="fullName" class="custom-label">Nome Completo</label>
+                            <div class="position-relative">
+                                <input 
+                                    type="text" 
+                                    id="fullName" 
+                                    formControlName="fullName" 
+                                    class="custom-input" 
+                                    placeholder="Ex: João Silva Sauro">
+                                
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                    <i class="fa fa-user-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="custom-form-group col-12">
+                            <label for="email" class="custom-label">Email que será usado para login</label>
+                            <div class="position-relative">
+                                <input 
+                                    type="text" 
+                                    id="email" 
+                                    formControlName="email" 
+                                    class="custom-input" 
+                                    placeholder="Ex: joao.silva@example.com">
+                                
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                    <i class="fa fa-paper-plane"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="custom-form-group col-12">
+                            <label for="phone" class="custom-label">Telefone</label>
+                            <div class="position-relative">
+                                <input 
+                                    type="text" 
+                                    id="phone" 
+                                    formControlName="phone" 
+                                    class="custom-input" 
+                                    placeholder="Ex: (11) 99999-9999">
+                                
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                            
+                                <div class="custom-form-group">
+                                    <label for="password" class="custom-label">Senha</label>
+                                    <div class="position-relative">
+                                        <input 
+                                            type="password" 
+                                            id="password" 
+                                            formControlName="password" 
+                                            class="custom-input" 
+                                            placeholder="••••••••">
+                                        
+                                        <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="custom-form-group">
+                                    <label for="confirm-password" class="custom-label">Confirmar Senha</label>
+                                    <div class="position-relative">
+                                        <input 
+                                            type="password" 
+                                            id="confirm-password" 
+                                            formControlName="confirmPassword" 
+                                            class="custom-input" 
+                                            autocomplete="off"
+                                            placeholder="••••••••">
+                                        
+                                        <span class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted opacity-50">
+                                            <i class="fa fa-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-4 mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                <label class="form-check-label" for="checkDefault">CONCORDO COM OS TERMOS DO CONTRATO DE USUÁRIO E COM A POLÍTICA DE PRIVACIDADE.</label> 
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary">Registrar</button>
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

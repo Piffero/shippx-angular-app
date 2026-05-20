@@ -1,0 +1,128 @@
+<div class="register-container d-flex">
+    <div class="register-overlay">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+            <div class="register-card p-4 shadow-lg rounded-4 w-100" style="max-width: 550px;">
+                
+                <div class="text-center mb-2">
+                    <h2 class="fw-bold text-dark">Crie sua conta</h2>
+                    <p class="text-muted">Junte-se à Andrometra, a logística inteligente.</p>
+                </div>
+
+                <form [formGroup]="signUpForm" (ngSubmit)="handleSignUp()">
+
+                    <div class="role-selector">
+                        <ul class="nav nav-tabs g-3">
+                            <li class="nav-item col-4"><a class="nav-link role-option" [class.active]="selectedAccountType === 'supplier'" (click)="selectedAccountType = 'supplier'"><i class="fa fa-user"></i> Fornecedor</a></li>
+                            <li class="nav-item col-4"><a class="nav-link role-option" [class.active]="selectedAccountType === 'trade'" (click)="selectedAccountType = 'trade'"><i class="fa fa-sliders"></i> Comerciante</a></li>
+                            <li class="nav-item col-4"><a class="nav-link role-option" [class.active]="selectedAccountType === 'carrier'" (click)="selectedAccountType = 'carrier'"><i class="fa fa-truck"></i> Transportador</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane fade active show">
+                        @if(selectedAccountType === 'supplier') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesOwnStore" value="own_store" >
+                                <label class="form-check-label" for="radioTradesOwnStore">Logista
+                                    <a href="javascript: void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('ownStoreHelp')">?</a>
+                                    @if (openedHelp() === 'ownStoreHelp') {
+                                    <div class="help-text help-balloon">
+                                        <p>Escolha "Logista" se você é um indivíduo que deseja enviar ou receber mercadorias para uso pessoal, com fins comerciais.</p>
+                                    </div>
+                                    }
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesIndustry" value="industry">
+                                <label class="form-check-label" for="radioTradesIndustry">Industria
+                                    <a href="javascript: void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('industryHelp')">?</a>
+                                    @if (openedHelp() === 'industryHelp') {
+                                    <div class="help-text help-balloon">
+                                        <p>Escolha "industria" se você é um indivíduo que deseja enviar mercadorias para uso comerciais.</p>
+                                    </div>
+                                    }
+                                </label>
+                            </div>
+                        }
+                        @if(selectedAccountType === 'trade') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesPersonal" value="personal">
+                                <label class="form-check-label" for="radioTradesPersonal">Pessoal
+                                    <a href="javascript: void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('personalHelp')">?</a>
+                                    @if (openedHelp() === 'personalHelp') {
+                                    <div class="help-text help-balloon">
+                                        <p>Escolha "Pessoal" se você é um indivíduo que deseja enviar ou receber mercadorias para uso pessoal, sem fins comerciais.</p>
+                                    </div>
+                                    }
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesBusiness" value="business">
+                                <label class="form-check-label" for="radioTradesBusiness">Logista
+                                    <a href="javascript: void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('businessHelp')">?</a>
+                                    @if (openedHelp() === 'businessHelp') {
+                                    <div class="help-text help-balloon">
+                                        <p>Escolha "Logista" se você é um indivíduo que deseja enviar ou receber mercadorias para uso pessoal, com fins comerciais.</p>
+                                    </div>
+                                    }
+                                </label>
+                            </div>
+                        }
+                        @if(selectedAccountType === 'carrier') {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesPrivate" value="private">
+                                <label class="form-check-label" for="radioTradesPrivate">Particular
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('carrierPrivate')">?</a>
+                                    @if (openedHelp() === 'carrierPrivate') {
+                                        <div class="help-text help-balloon">
+                                            <p>Autônomo com veículo próprio. MEI</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="tradeType" name="tradeType" id="radioTradesLogistics" value="logistics">
+                                <label class="form-check-label" for="radioTradesLogistics">Transportadora
+                                    <a href="javascript:void(0);" class="help-tooltip" (click)="$event.stopPropagation(); toggleHelp('carrierLogistics')">?</a>
+                                    @if (openedHelp() === 'carrierLogistics') {
+                                        <div class="help-text help-balloon">
+                                            <p>Empresa de transporte ou operador de logística.</p>
+                                        </div>
+                                    }
+                                </label>
+                            </div>
+                        }
+
+                        <div class="custom-form-group mb-3">
+                            <label for="full_name" class="form-label">Nome Completo</label>
+                            <input type="text" id="full_name" formControlName="full_name" class="form-control" placeholder="Digite seu nome completo">
+                        </div>
+
+                        <div class="custom-form-group mb-3">
+                            <label for="document" class="form-label">CPF ou CNPJ</label>
+                            <input type="text" id="document" formControlName="document" class="form-control" placeholder="Digite seu CPF ou CNPJ">
+                        </div>
+
+                        <div class="custom-form-group mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" formControlName="email" class="form-control" placeholder="Digite seu email">
+                        </div>
+
+                        <div class="mb-3 position-relative">
+                            <label for="password" class="form-label">Senha</label>
+                            <input [type]="showPassword() ? 'text' : 'password'" id="password" formControlName="password" class="form-control" placeholder="Digite sua senha">
+                            <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" (click)="showPassword.set(!showPassword())">
+                                <i [class.fa-eye]="!showPassword()" [class.fa-eye-slash]="showPassword()" class="fa"></i>
+                            </button>
+                        </div>
+
+                        @if(errorMessage()) {
+                            <div class="alert alert-danger">{{ errorMessage() }}</div>
+                        }
+                        
+                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

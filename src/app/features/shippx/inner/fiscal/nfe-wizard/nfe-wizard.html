@@ -1,0 +1,61 @@
+<div class="wizard-card p-4 bg-white rounded-4 shadow-sm">
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+    <h5 class="fw-bold m-0 text-dark"><i class="fa fa-file-invoice me-2 text-primary"></i>Assistente de NF-e</h5>
+    <button (click)="onCancel.emit()" class="btn-close" [disabled]="loading()"></button>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center mb-4 gap-3">
+    <span class="badge" [class.bg-primary]="currentStep() === 1" [class.bg-light]="currentStep() !== 1" [class.text-dark]="currentStep() !== 1">1. Validação</span>
+    <i class="fa fa-chevron-right text-muted small"></i>
+    <span class="badge" [class.bg-primary]="currentStep() === 2" [class.bg-light]="currentStep() !== 2" [class.text-dark]="currentStep() !== 2">2. Dados Fiscais</span>
+  </div>
+
+  <form [formGroup]="fiscalForm">
+    @switch (currentStep()) {
+      @case (1) {
+        <div class="animate__animated animate__fadeIn">
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">Chave de Acesso Eletrónica (44 dígitos)</label>
+            <input type="text" formControlName="chave" class="form-control font-monospace" placeholder="00000000000000000000000000000000000000000000">
+            @if (fiscalForm.get('chave')?.touched && fiscalForm.get('chave')?.invalid) {
+              <small class="text-danger d-block mt-1">A chave deve conter exatamente 44 caracteres numéricos.</small>
+            }
+          </div>
+          <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-primary px-4" [disabled]="fiscalForm.get('chave')?.invalid" (click)="nextStep()">Avançar</button>
+          </div>
+        </div>
+      }
+
+      @case (2) {
+        <div class="animate__animated animate__fadeIn">
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label class="form-label small fw-bold text-muted">Número da Nota</label>
+              <input type="text" formControlName="numero" class="form-control">
+            </div>
+            <div class="col-6">
+              <label class="form-label small fw-bold text-muted">Série</label>
+              <input type="text" formControlName="serie" class="form-control">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">Retenção de ICMS-ST (Valor Informado)</label>
+            <div class="input-group">
+              <span class="input-group-text">R$</span>
+              <input type="number" formControlName="icmsSt" class="form-control">
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-outline-secondary" [disabled]="loading()" (click)="prevStep()">Voltar</button>
+            <button type="button" class="btn btn-success px-4" [disabled]="fiscalForm.invalid || loading()" (click)="submitFiscal()">
+              @if (loading()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+              Validar e Transmitir
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </form>
+</div>

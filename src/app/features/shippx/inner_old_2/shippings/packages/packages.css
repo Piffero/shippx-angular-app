@@ -1,0 +1,18 @@
+.details-section {
+  animation: slideDown 0.3s ease-out;
+  overflow: hidden;
+  background-color: #fcfcfc; /* Um fundo levemente diferente para destacar */
+  margin: 0 -1rem; /* Estica até a borda do card */
+  padding: 1rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

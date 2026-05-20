@@ -1,0 +1,27 @@
+<div class="card h-100 shadow-sm border-0 product-card">
+    <div class="position-relative">
+        <img [src]="product.foto_url || 'assets/images/default-beer.jpg'" 
+                class="card-img-top p-3" alt="Foto do produto">        
+        <!-- O StockBadge que você mencionou -->
+        <rd-catalog-stock-badge [quantity]="product.estoque_aproximado"></rd-catalog-stock-badge>
+    </div>
+
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title fw-bold">{{ product.nome }}</h5>
+        <p class="card-text text-muted small flex-grow-1">{{ product.descricao }}</p>
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="fs-5 fw-bold text-primary">
+            {{ product.preco_unitario | currencyBrl }}
+            </span>
+            <span class="badge bg-light text-dark border">{{ product.unidade }}</span>
+        </div>
+
+        @if (!viewOnly) {
+        <button (click)="addToCart.emit(product)" 
+                class="btn btn-outline-primary w-100 mt-3 rounded-pill">
+        <i class="fa fa-cart-plus me-2"></i> Adicionar
+        </button>
+        }
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="container py-4">
+  <header class="mb-4">
+    <h2 class="fw-bold text-dark">Oportunidades Próximas</h2>
+    <p class="text-muted">Encontre fretes disponíveis em Florianópolis e região.</p>
+  </header>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-muted">Buscando cargas...</p>
+    </div>
+  } @else {
+    
+    <div class="row g-3">
+      @for (order of availableOrders(); track order.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm opportunity-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                  Frete Disponível
+                </span>
+                <h5 class="fw-bold text-primary m-0">
+                  {{ order.valor_total | currency:'BRL' }}
+                </h5>
+              </div>
+
+              <div class="delivery-route mb-3">
+                <div class="d-flex align-items-center mb-2">
+                  <i class="fa fa-circle text-primary me-3 small"></i>
+                  <div class="text-truncate">
+                    <small class="text-muted d-block">Retirada (Cervejaria)</small>
+                    <strong>Centro, Florianópolis</strong>
+                  </div>
+                </div>
+                <div class="route-line"></div>
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-map-marker-alt text-danger me-3"></i>
+                  <div class="text-truncate">
+                    <small class="text-muted d-block">Entrega (Bar)</small>
+                    <strong>{{ order.endereco_entrega }}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-top pt-3 d-flex justify-content-between align-items-center">
+                <span class="small text-muted">
+                  <i class="fa fa-box me-1"></i> Volume: Médio
+                </span>
+                <button 
+                  (click)="acceptDelivery(order.id!)"
+                  [disabled]="isaccepting() === order.id"
+                  class="btn btn-primary rounded-pill px-4">
+                  @if (isaccepting() === order.id) {
+                    <span class="spinner-border spinner-border-sm"></span>
+                  } @else {
+                    Aceitar Frete
+                  }
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="text-center py-5">
+          <i class="fa fa-search fa-3x text-muted mb-3"></i>
+          <h4>Nenhuma carga no momento</h4>
+          <p class="text-muted">Aguarde novas publicações das cervejarias.</p>
+          <button (click)="loadOpportunities()" class="btn btn-outline-primary mt-2">
+            Atualizar Radar
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

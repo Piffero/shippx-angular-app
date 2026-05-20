@@ -1,0 +1,206 @@
+.register-container {
+  min-height: 100vh;
+  background: url('/images/bg-auth-truck.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.register-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Azul Andrometra com 85% de transparência */
+  background-color: rgba(0, 31, 84, 0.85); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  background-color: #ffffff;
+  border: none;
+  /* Garante que o card fique por cima do overlay */
+  z-index: 10; 
+}
+
+/* Estilo para o Seletor de Perfil (Role Selector) */
+.role-option {
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #fff;
+  color: #a0aec0;
+}
+
+.role-option:hover {
+  border-color: #cddffc;
+  background-color: #f8fbff;
+}
+
+.role-option.active {
+  border-color: #0052ff;
+  background-color: #f0f5ff;
+  box-shadow: 0 5px 15px rgba(0, 82, 255, 0.1);
+}
+
+.role-option i {
+  color: #a0aec0;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.role-option.active i {
+  color: #0052ff;
+}
+
+.role-option h6 {
+  color: #1a1c21;
+}
+
+/* Reutilizando CSS do Login (btn-password-toggle e position-relative) */
+.position-relative {
+  position: relative;
+}
+
+.btn-password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.form-control.pe-5 {
+  padding-right: 45px !important;
+}
+
+.tab-pane {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+}
+
+
+/* Container do campo para dar espaçamento */
+.custom-form-group {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Label mais elegante: menor, levemente negritada e com cor suave */
+.custom-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4A5568;
+  margin-bottom: 5px;
+  display: block;
+  transition: color 0.2s;
+}
+
+/* O Input personalizado */
+.custom-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  background-color: #F8FAFC; /* Fundo levemente cinza */
+  border: 2px solid #E2E8F0;
+  border-radius: 12px; /* Cantos mais arredondados */
+  color: #1A202C;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+/* Efeito de Foco: a borda brilha no azul da Andrometra e o fundo clareia */
+.custom-input:focus {
+  background-color: #FFFFFF;
+  border-color: #0052FF;
+  box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.1);
+}
+
+/* Mudança na label quando o input está focado */
+.custom-form-group:focus-within .custom-label {
+  color: #0052FF;
+}
+
+/* Estilização do Placeholder */
+.custom-input::placeholder {
+  color: #A0AEC0;
+  font-weight: 400;
+}
+
+/* Container da Label para permitir o posicionamento do balão */
+.form-check-label {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilo do "?" */
+.help-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #72b2fc;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
+  vertical-align: middle;
+  transition: background-color 0.2s;
+}
+
+.help-tooltip:hover {
+  background-color: #003db3;
+  color: white;
+}
+
+/* O Balão de Explicação */
+.help-balloon {
+  position: absolute;
+  top: 30px; /* Aparece abaixo do "?" */
+  left: 0;
+  z-index: 100;
+  width: 250px;
+  padding: 12px;
+  background-color: #9b9b9b; /* Tom escuro para contraste */
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Triângulo (setinha) do balão */
+.help-balloon::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 15px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #9b9b9b;
+}
+
+.help-balloon p {
+  margin: 0;
+}
+
+/* Animação suave para aparecer */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

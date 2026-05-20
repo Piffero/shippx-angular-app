@@ -1,0 +1,39 @@
+.invoices-container {
+  .icon-box {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .bg-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0046ad 100%) !important;
+  }
+
+  .bg-decoration {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    transition: background 0.2s;
+    &:hover {
+      background-color: #f8f9fa;
+    }
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+}

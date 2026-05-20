@@ -1,0 +1,67 @@
+<div class="container py-3">
+  @if (loading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+  } @else if (order()) {
+    
+    <div class="card border-0 shadow-sm rounded-4 mb-3 overflow-hidden">
+      <!-- Status Bar -->
+      <div class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+        <span class="fw-bold"><i class="fa fa-truck me-2"></i> Em Entrega</span>
+        <span class="small">ID: #{{ order()?.id | slice:0:8 }}</span>
+      </div>
+
+      <div class="card-body p-4">
+        <!-- Rota de Entrega -->
+        <div class="tracking-steps">
+          <div class="step-item mb-4">
+            <div class="step-icon bg-light"><i class="fa fa-warehouse text-primary"></i></div>
+            <div class="step-content">
+              <label class="text-muted small d-block">Ponto de Coleta (Cervejaria)</label>
+              <strong class="d-block">Cervejaria Artesanal Ilha</strong>
+              <p class="text-muted small mb-1">Rua das Flores, 123 - Centro, Fpolis</p>
+              <button (click)="openInMaps('Rua das Flores, 123, Centro, Florianopolis')" 
+                      class="btn btn-link btn-sm p-0 text-decoration-none">
+                <i class="fa fa-directions me-1"></i> Ver no GPS
+              </button>
+            </div>
+          </div>
+
+          <div class="step-divider"></div>
+
+          <div class="step-item">
+            <div class="step-icon bg-primary-subtle"><i class="fa fa-map-marker-alt text-primary"></i></div>
+            <div class="step-content">
+              <label class="text-muted small d-block">Destino Final (Bar)</label>
+              <strong class="d-block">{{ order()?.endereco_entrega }}</strong>
+              <p class="text-muted small mb-1">CEP: {{ order()?.cep_entrega || 'N/A' }}</p>
+              <button (click)="openInMaps(order()?.endereco_entrega!)" 
+                      class="btn btn-link btn-sm p-0 text-decoration-none text-danger">
+                <i class="fa fa-directions me-1"></i> Abrir Rota no Maps
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de Ações -->
+    <div class="actions-footer">
+      <div class="alert alert-info py-2 small mb-3">
+        <i class="fa fa-info-circle me-2"></i> Ao chegar, clique abaixo para coletar a assinatura.
+      </div>
+      
+      <button 
+        [routerLink]="['/delivery/proof', order()?.id]"
+        class="btn btn-primary btn-lg w-100 rounded-pill shadow">
+        <i class="fa fa-check-circle me-2"></i> Cheguei no Destino
+      </button>
+
+      <button class="btn btn-link w-100 mt-2 text-muted text-decoration-none small">
+        <i class="fa fa-phone me-1"></i> Contatar Suporte ShippX
+      </button>
+    </div>
+
+  }
+</div>

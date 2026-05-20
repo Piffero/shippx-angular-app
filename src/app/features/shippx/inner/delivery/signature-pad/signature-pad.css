@@ -1,0 +1,5 @@
+.signature-canvas { 
+    height: 250px; 
+    touch-action: none; /* Impede o scroll da tela enquanto assina */
+    cursor: crosshair;
+}

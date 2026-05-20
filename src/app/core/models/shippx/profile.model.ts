@@ -9,6 +9,7 @@ export interface Profile {
   city: string;
   state: string;
   role: 'owner' | 'director' | 'manager' | 'provider' | 'staff' | null;
+  trade_type: 'own_store' | 'industry' | 'personal' | 'business' | 'private' | 'logistics';
   metadata: any;
   created_at?: string;
   updated_at?: string;

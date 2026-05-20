@@ -1,0 +1,27 @@
+.vehicle-option {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 2px solid #f8f9fa !important;
+  background-color: #f8f9fa;
+  color: #adb5bd;
+
+  &:hover {
+    border-color: #dee2e6 !important;
+    background-color: #fff;
+  }
+
+  &.active {
+    border-color: #0d6efd !important;
+    background-color: #f0f7ff;
+    color: #0d6efd;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.1);
+  }
+
+  i {
+    transition: transform 0.2s;
+  }
+
+  &.active i {
+    transform: scale(1.1);
+  }
+}

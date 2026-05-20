@@ -1,0 +1,53 @@
+<div class="container py-4">
+  <div class="card shadow-sm border-0 rounded-4 p-4">
+    
+    <!-- Header de Progresso -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold mb-0">Finalizar Entrega</h3>
+      <span class="badge bg-primary-subtle text-primary rounded-pill">Pedido #{{ orderId() | slice:0:8 }}</span>
+    </div>
+
+    <!-- Mensagens de Erro -->
+    @if (errorMessage()) {
+      <div class="alert alert-danger mb-3">{{ errorMessage() }}</div>
+    }
+
+    <!-- CONTEÚDO DINÂMICO POR STEP -->
+     @switch (currentStep()) {
+        @case ('photo') {
+        <div class="text-center animate__animated animate__fadeIn">
+            <div class="upload-area p-5 border-dashed rounded-4 bg-light mb-3">
+                <i class="fa fa-camera fa-3x text-muted mb-3"></i>
+                <p>Tire uma foto da mercadoria no local de entrega</p>
+                <input type="file" accept="image/*" capture="environment" 
+                    (change)="handlePhotoCapture($event)" class="d-none" #fileInput>
+                <button class="btn btn-primary btn-lg w-100" (click)="fileInput.click()" [disabled]="loading()">
+                @if (loading()) { 
+                    <span class="spinner-border spinner-border-sm me-2"></span> 
+                } @else {
+                    Abrir Câmera
+                }
+                </button>
+            </div>
+        </div>
+        }
+        @case ('signature') {
+        <div class="animate__animated animate__fadeIn">
+          <rd-delivery-signature-pad (onSave)="onSignatureConfirmed($event)"></rd-delivery-signature-pad>
+        </div>
+        }
+        @case ('syncing') {
+        <div class="text-center py-5 animate__animated animate__pulse animate__infinite">
+          <div class="spinner-grow text-primary mb-3"></div>
+          <h4>Finalizando Pedido...</h4>
+          <p class="text-muted">Processando comprovantes e baixando estoque.</p>
+        </div>
+        }
+        @default {
+        <div class="text-center">
+            <p>Estado desconhecido. Por favor, reinicie o processo.</p>
+        </div>
+        }
+     }
+  </div>
+</div>

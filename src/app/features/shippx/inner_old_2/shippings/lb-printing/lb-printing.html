@@ -1,0 +1,14 @@
+<div style="display: none;">
+  <qrcode 
+    #qrcodeElement
+    [qrdata]="packageData().id" 
+    [width]="256" 
+    [errorCorrectionLevel]="'M'">
+  </qrcode>
+</div>
+
+<div class="d-grid gap-2">
+    <button (click)="generatePDF()" class="btn btn-primary">
+    <i class="bi bi-printer me-2"></i>Imprimir Etiqueta Shippx
+    </button>
+</div>

@@ -1,0 +1,20 @@
+<div class="signature-container">
+    <canvas #sigCanvas 
+            (mousedown)="startDrawing($event)" 
+            (mousemove)="draw($event)" 
+            (mouseup)="stopDrawing()"
+            (touchstart)="startDrawing($event)"
+            (touchmove)="draw($event)"
+            (touchend)="stopDrawing()"
+            class="signature-canvas border rounded-3 bg-white w-100">
+    </canvas>
+    
+    <div class="d-flex gap-2 mt-3">
+    <button type="button" class="btn btn-outline-secondary flex-grow-1" (click)="clear()">
+        <i class="fa fa-eraser me-2"></i> Limpar
+    </button>
+    <button type="button" class="btn btn-primary flex-grow-1" [disabled]="isEmpty()" (click)="save()">
+        <i class="fa fa-check me-2"></i> Confirmar Assinatura
+    </button>
+    </div>
+</div>
